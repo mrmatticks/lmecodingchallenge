@@ -1,5 +1,9 @@
 package co.uk.gerronematticks.lmecodingchallenge.instructions;
 
+import co.uk.gerronematticks.lmecodingchallenge.model.Orientation;
+import co.uk.gerronematticks.lmecodingchallenge.model.Position;
+import co.uk.gerronematticks.lmecodingchallenge.model.Robot;
+import co.uk.gerronematticks.lmecodingchallenge.state.WorldState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -13,10 +17,13 @@ import java.util.Collections;
 public class SetUpRobotPositionInstruction implements Instruction {
 
     private final Collection<Instruction> allowedNextInstruction;
+    private final WorldState worldState;
 
     @Autowired
-    public SetUpRobotPositionInstruction(@Lazy @Qualifier("moveRobotInstruction") Instruction instruction) {
+    public SetUpRobotPositionInstruction(@Lazy @Qualifier("moveRobotInstruction") Instruction instruction,
+                                         WorldState worldState) {
         this.allowedNextInstruction = Collections.singletonList(instruction);
+        this.worldState = worldState;
     }
 
     @Override
@@ -31,7 +38,13 @@ public class SetUpRobotPositionInstruction implements Instruction {
     }
 
     @Override
-    public String performInstruction(String string) {
+    public String performInstruction(String input) {
+        String[] split = input.split(" ");
+        int x = Integer.parseInt(split[0]);
+        int y = Integer.parseInt(split[1]);
+        Orientation orientation = Orientation.getOrientation(split[2]);
+
+        this.worldState.setCurrentRobot(new Robot(orientation, new Position(x, y)));
         return null;
     }
 

@@ -1,6 +1,7 @@
 package co.uk.gerronematticks.lmecodingchallenge;
 
 import co.uk.gerronematticks.lmecodingchallenge.instructions.*;
+import co.uk.gerronematticks.lmecodingchallenge.state.WorldState;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,10 +14,11 @@ public class LmeCodingRobotInstructionParserTest {
 
     @Before
     public void setUp() {
-        Instruction blankLineInstruction = new BlankLineInstruction(null);
-        Instruction moveRobotInstruction = new MoveRobotInstruction(blankLineInstruction);
-        Instruction setUpRobotInstruction = new SetUpRobotPositionInstruction(moveRobotInstruction);
-        Instruction setUpWorldInstruction = new SetUpWorldInstruction(setUpRobotInstruction);
+        WorldState worldState = new WorldState();
+        Instruction blankLineInstruction = new BlankLineInstruction(null, worldState);
+        Instruction moveRobotInstruction = new MoveRobotInstruction(blankLineInstruction, worldState);
+        Instruction setUpRobotInstruction = new SetUpRobotPositionInstruction(moveRobotInstruction, worldState);
+        Instruction setUpWorldInstruction = new SetUpWorldInstruction(setUpRobotInstruction, worldState);
 
         lmeCodingRobotInstructionParser = new LmeCodingRobotInstructionParser(setUpWorldInstruction);
     }

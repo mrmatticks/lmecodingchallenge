@@ -1,5 +1,6 @@
 package co.uk.gerronematticks.lmecodingchallenge.instructions;
 
+import co.uk.gerronematticks.lmecodingchallenge.state.WorldState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -13,10 +14,13 @@ import java.util.Collection;
 public class BlankLineInstruction implements Instruction {
 
     private final Collection<Instruction> allowedNextInstruction;
+    private final WorldState worldState;
 
     @Autowired
-    public BlankLineInstruction(@Lazy @Qualifier("setUpRobotPositionInstruction") Instruction instruction) {
+    public BlankLineInstruction(@Lazy @Qualifier("setUpRobotPositionInstruction") Instruction instruction,
+                                WorldState worldState) {
         this.allowedNextInstruction = Arrays.asList(this, instruction);
+        this.worldState = worldState;
     }
 
     @Override
