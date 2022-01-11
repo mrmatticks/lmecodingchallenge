@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 @Component
 @Qualifier("setUpRobotPositionInstruction")
@@ -42,10 +43,28 @@ public class SetUpRobotPositionInstruction implements Instruction {
         String[] split = input.split(" ");
         int x = Integer.parseInt(split[0]);
         int y = Integer.parseInt(split[1]);
+
+        validateRobotPosition(x, y);
         Orientation orientation = Orientation.getOrientation(split[2]);
 
         this.worldState.setCurrentRobot(new Robot(orientation, new Position(x, y)));
         return null;
+    }
+
+    private void validateRobotPosition(int x, int y) {
+        if (Objects.isNull(this.worldState.getXSize()) || Objects.isNull(this.worldState.getYSize())) {
+            throw new IllegalStateException("World state is not set-up yet.");
+        }
+
+        if (x > this.worldState.getXSize()) {
+            throw new IllegalArgumentException(String.format("Robot position X:%d is greater than the space (x,y) : (%d,%d)",
+                    x, this.worldState.getXSize(), this.worldState.getYSize()));
+        }
+
+        if (y > this.worldState.getYSize()) {
+            throw new IllegalArgumentException(String.format("Robot position y:%d is greater than the space (x,y) : (%d,%d)",
+                    y, this.worldState.getXSize(), this.worldState.getYSize()));
+        }
     }
 
     @Override

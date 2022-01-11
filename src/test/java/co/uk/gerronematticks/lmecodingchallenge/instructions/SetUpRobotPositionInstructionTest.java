@@ -43,4 +43,45 @@ public class SetUpRobotPositionInstructionTest {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void setUpRobotPositionOffGrid() {
+        //Given
+        WorldState actual = new WorldState();
+        actual.initialize(4, 5);
+
+        //When & Then
+        new SetUpRobotPositionInstruction(null, actual).performInstruction("5 5 E");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setUpRobotPositionInvalidXPosition() {
+        //Given
+        WorldState actual = new WorldState();
+        actual.initialize(4, 5);
+
+        //When & Then
+        new SetUpRobotPositionInstruction(null, actual).performInstruction("X 5 E");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setUpRobotPositionInvalidYPosition() {
+        //Given
+        WorldState actual = new WorldState();
+        actual.initialize(4, 5);
+
+        //When & Then
+        new SetUpRobotPositionInstruction(null, actual).performInstruction("5 X E");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setUpRobotPositionInvalidOrientation() {
+        //Given
+        WorldState actual = new WorldState();
+        actual.initialize(4, 5);
+
+        //When & Then
+        new SetUpRobotPositionInstruction(null, actual).performInstruction("5 5 H");
+    }
+
+
 }
