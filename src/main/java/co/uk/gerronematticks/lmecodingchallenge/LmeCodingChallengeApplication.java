@@ -34,7 +34,7 @@ public class LmeCodingChallengeApplication implements CommandLineRunner {
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
 
-            Optional.ofNullable(lmeCodingRobotInstructionParser.parseInstruction(input))
+            lmeCodingRobotInstructionParser.parseInstruction(input)
                     .ifPresent(System.out::println);
 
             if (lmeCodingRobotInstructionParser.getAllowedInstructions().isEmpty()) {

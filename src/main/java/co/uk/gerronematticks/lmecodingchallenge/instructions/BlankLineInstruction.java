@@ -9,19 +9,17 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 @Qualifier("blankLineInstruction")
 public class BlankLineInstruction implements Instruction {
 
     private final Collection<Instruction> allowedNextInstruction;
-    private final WorldState worldState;
 
     @Autowired
-    public BlankLineInstruction(@Lazy @Qualifier("setUpRobotPositionInstruction") Instruction instruction,
-                                WorldState worldState) {
+    public BlankLineInstruction(@Lazy @Qualifier("setUpRobotPositionInstruction") Instruction instruction) {
         this.allowedNextInstruction = Arrays.asList(this, instruction);
-        this.worldState = worldState;
     }
 
     @Override
@@ -30,8 +28,8 @@ public class BlankLineInstruction implements Instruction {
     }
 
     @Override
-    public String performInstruction(String string) {
-        return null;
+    public Optional<String> performInstruction(String input) {
+        return Optional.empty();
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @Qualifier("moveRobotInstruction")
@@ -33,7 +34,7 @@ public class MoveRobotInstruction implements Instruction {
     }
 
     @Override
-    public String performInstruction(String input) {
+    public Optional<String> performInstruction(String input) {
         if (Objects.isNull(this.worldState.getXSize()) || Objects.isNull(this.worldState.getYSize())) {
             throw new IllegalStateException("World state is not set-up yet.");
         }
@@ -52,7 +53,7 @@ public class MoveRobotInstruction implements Instruction {
             }
         }
 
-        return this.worldState.getPrintedState();
+        return Optional.of(this.worldState.getPrintedState());
     }
 
     @Override

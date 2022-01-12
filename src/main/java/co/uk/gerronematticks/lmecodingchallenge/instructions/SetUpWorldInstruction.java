@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 @Qualifier("setUpWorldInstruction")
@@ -35,13 +36,14 @@ public class SetUpWorldInstruction implements Instruction {
     }
 
     @Override
-    public String performInstruction(String input) {
+    public Optional<String> performInstruction(String input) {
         String[] split = input.split(" ");
         int x = Integer.parseInt(split[0]);
         int y = Integer.parseInt(split[1]);
 
         this.worldState.initialize(x, y);
-        return null;
+
+        return Optional.empty();
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -42,7 +43,8 @@ public class ApplicationTest {
     private String getOutput(String input) {
         return input.lines()
                 .map(line -> lmeCodingRobotInstructionParser.parseInstruction(line))
-                .filter(Objects::nonNull)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.joining("\n"));
     }
 

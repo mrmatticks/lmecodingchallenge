@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 public class LmeCodingRobotInstructionParser {
@@ -18,11 +19,11 @@ public class LmeCodingRobotInstructionParser {
         this.allowedInstructions = Collections.singletonList(instruction);
     }
 
-    public String parseInstruction(String input) {
+    public Optional<String> parseInstruction(String input) {
 
         Instruction matchingInstruction = getMatchingInstruction(input);
 
-        String output = matchingInstruction.performInstruction(input);
+        Optional<String> output = matchingInstruction.performInstruction(input);
 
         this.allowedInstructions = matchingInstruction.allowedNextInstructions();
 

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +18,7 @@ public class LmeCodingRobotInstructionParserTest {
     @Before
     public void setUp() {
         WorldState worldState = new WorldState();
-        Instruction printStatementInstruction = new BlankLineInstruction(null, worldState);
+        Instruction printStatementInstruction = new BlankLineInstruction(null);
         Instruction moveRobotInstruction = new MoveRobotInstruction(printStatementInstruction, null, worldState);
         Instruction setUpRobotInstruction = new SetUpRobotPositionInstruction(moveRobotInstruction, worldState);
         Instruction setUpWorldInstruction = new SetUpWorldInstruction(setUpRobotInstruction, worldState);
@@ -55,11 +56,7 @@ public class LmeCodingRobotInstructionParserTest {
 
         String expected = "1 1 E";
 
-        String actual = input.lines()
-                .map(line -> lmeCodingRobotInstructionParser.parseInstruction(line))
-                .filter(Objects::nonNull)
-                .findAny()
-                .orElse(null);
+        String actual = getOutput(input);
         assertEquals(expected, actual);
     }
 
@@ -72,11 +69,7 @@ public class LmeCodingRobotInstructionParserTest {
 
         String expected = "3 3 N LOST";
 
-        String actual = input.lines()
-                .map(line -> lmeCodingRobotInstructionParser.parseInstruction(line))
-                .filter(Objects::nonNull)
-                .findAny()
-                .orElse(null);
+        String actual = getOutput(input);
         assertEquals(expected, actual);
     }
 
@@ -129,6 +122,15 @@ public class LmeCodingRobotInstructionParserTest {
 
         input.lines()
                 .forEach(line -> lmeCodingRobotInstructionParser.parseInstruction(line));
+    }
+
+    private String getOutput(String input) {
+        return input.lines()
+                .map(line -> lmeCodingRobotInstructionParser.parseInstruction(line))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findAny()
+                .orElse(null);
     }
 
 }

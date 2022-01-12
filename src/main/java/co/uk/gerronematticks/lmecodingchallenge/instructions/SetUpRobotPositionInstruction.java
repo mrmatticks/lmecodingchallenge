@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @Qualifier("setUpRobotPositionInstruction")
@@ -39,7 +40,7 @@ public class SetUpRobotPositionInstruction implements Instruction {
     }
 
     @Override
-    public String performInstruction(String input) {
+    public Optional<String> performInstruction(String input) {
         String[] split = input.split(" ");
         int x = Integer.parseInt(split[0]);
         int y = Integer.parseInt(split[1]);
@@ -48,7 +49,8 @@ public class SetUpRobotPositionInstruction implements Instruction {
         Orientation orientation = Orientation.getOrientation(split[2]);
 
         this.worldState.setCurrentRobot(new Robot(orientation, new Position(x, y), false));
-        return null;
+
+        return Optional.empty();
     }
 
     private void validateRobotPosition(int x, int y) {
