@@ -33,8 +33,11 @@ public class LmeCodingChallengeApplication implements CommandLineRunner {
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
 
-            lmeCodingRobotInstructionParser.parseInstruction(input)
-                    .ifPresent(System.out::println);
+            try {
+                lmeCodingRobotInstructionParser.parseInstruction(input).ifPresent(System.out::println);
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
 
             if (lmeCodingRobotInstructionParser.getAllowedInstructions().isEmpty()) {
                 return;

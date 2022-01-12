@@ -10,6 +10,10 @@
 * Run `java -jar  target/lmecodingchallenge-0.0.1-SNAPSHOT.jar` to start the project
 * In the run window, you can directly type the input for each command.
 
+
+### Running Tests
+* Run `mvn test` in a terminal window
+
 ## Development Approach
 The idea here is each action you can do is based on a `Instruction`.
 You can implement `Instruction` to set up new behaviours and auto-wire in what are the allowed next instructions.

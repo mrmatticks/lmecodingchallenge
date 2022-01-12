@@ -38,7 +38,7 @@ public class LmeCodingRobotInstructionParser {
         return this.allowedInstructions.stream()
                 .filter(instruction -> instruction.matchesInstruction(input))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("Input:" + input + " is not valid next instruction"));
+                .orElseThrow(() -> new IllegalArgumentException("Input: " + input + " is not a valid next instruction"));
     }
 
 }

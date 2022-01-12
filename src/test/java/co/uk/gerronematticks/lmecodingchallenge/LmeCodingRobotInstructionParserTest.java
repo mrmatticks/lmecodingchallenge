@@ -5,7 +5,6 @@ import co.uk.gerronematticks.lmecodingchallenge.state.WorldState;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
