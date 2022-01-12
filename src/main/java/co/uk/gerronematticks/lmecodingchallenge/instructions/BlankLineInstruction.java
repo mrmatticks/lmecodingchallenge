@@ -1,6 +1,5 @@
 package co.uk.gerronematticks.lmecodingchallenge.instructions;
 
-import co.uk.gerronematticks.lmecodingchallenge.state.WorldState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 @Component
