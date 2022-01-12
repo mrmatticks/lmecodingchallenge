@@ -21,7 +21,7 @@ public class SetUpRobotPositionInstructionTest {
         //Then
         WorldState expected = new WorldState();
         expected.initialize(4, 5);
-        expected.setCurrentRobot(new Robot(Orientation.EAST, new Position(2, 3)));
+        expected.setCurrentRobot(new Robot(Orientation.EAST, new Position(2, 3), false));
 
         Assert.assertEquals(actual, expected);
     }
@@ -38,7 +38,7 @@ public class SetUpRobotPositionInstructionTest {
         //Then
         WorldState expected = new WorldState();
         expected.initialize(4, 5);
-        expected.setCurrentRobot(new Robot(Orientation.EAST, new Position(4, 5)));
+        expected.setCurrentRobot(new Robot(Orientation.EAST, new Position(4, 5), false));
 
         Assert.assertEquals(actual, expected);
     }

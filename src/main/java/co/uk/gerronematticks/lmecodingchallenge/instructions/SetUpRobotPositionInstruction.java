@@ -47,7 +47,7 @@ public class SetUpRobotPositionInstruction implements Instruction {
         validateRobotPosition(x, y);
         Orientation orientation = Orientation.getOrientation(split[2]);
 
-        this.worldState.setCurrentRobot(new Robot(orientation, new Position(x, y)));
+        this.worldState.setCurrentRobot(new Robot(orientation, new Position(x, y), false));
         return null;
     }
 

@@ -10,7 +10,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 @Component
 @Getter
@@ -24,10 +25,10 @@ public class WorldState {
     @Nullable
     private Integer ySize;
 
-    private final Collection<Position> lostRobotPositions;
+    private final List<Position> lostRobotsLastKnownLocations;
 
     public WorldState() {
-        lostRobotPositions = new ArrayList<>();
+        lostRobotsLastKnownLocations = new ArrayList<>();
     }
 
     public void initialize(int xSize, int ySize) {
@@ -38,4 +39,28 @@ public class WorldState {
     @Nullable
     @Setter
     private Robot currentRobot;
+
+    public void setRobotIsLost(Robot lostRobot) {
+        this.lostRobotsLastKnownLocations.add(lostRobot.getPosition());
+        this.currentRobot = this.currentRobot.toBuilder().isLost(true).build();
+    }
+
+    public String getPrintedState() {
+
+        if (Objects.nonNull(this.currentRobot) && this.currentRobot.isLost()) {
+            return String.format("%s %s %s LOST", this.currentRobot.getPosition().getX(),
+                    this.currentRobot.getPosition().getY(),
+                    this.currentRobot.getOrientation().getOrientationSymbol());
+        }
+
+        if (Objects.nonNull(this.currentRobot)) {
+            return String.format("%s %s %s", this.currentRobot.getPosition().getX(),
+                    this.currentRobot.getPosition().getY(),
+                    this.currentRobot.getOrientation().getOrientationSymbol());
+        }
+
+
+        return null;
+    }
+
 }

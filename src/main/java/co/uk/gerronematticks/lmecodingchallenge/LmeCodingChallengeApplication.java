@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -32,7 +33,9 @@ public class LmeCodingChallengeApplication implements CommandLineRunner {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            lmeCodingRobotInstructionParser.parseInstruction(input);
+
+            Optional.ofNullable(lmeCodingRobotInstructionParser.parseInstruction(input))
+                    .ifPresent(System.out::println);
 
             if (lmeCodingRobotInstructionParser.getAllowedInstructions().isEmpty()) {
                 return;
