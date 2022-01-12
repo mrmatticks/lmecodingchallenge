@@ -29,19 +29,31 @@ public class LmeCodingChallengeApplication implements CommandLineRunner {
     }
 
     private void handleInput() {
+        System.out.println("------------------ STARTING ROBOT APPLICATION ------------------------------");
+        System.out.println("------------------ PLEASE ENTER YOUR FIRST INPUT: ------------------------------");
+
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
 
-            try {
-                lmeCodingRobotInstructionParser.parseInstruction(input).ifPresent(System.out::println);
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage());
-            }
+            handleInput(input);
 
             if (lmeCodingRobotInstructionParser.getAllowedInstructions().isEmpty()) {
                 return;
             }
+        }
+    }
+
+    private void handleInput(String input) {
+        if (input.length() > 100) {
+            System.err.println("Instruction cannot be greater than 100 characters");
+            return;
+        }
+
+        try {
+            lmeCodingRobotInstructionParser.parseInstruction(input).ifPresent(System.out::println);
+        } catch (IllegalArgumentException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 }

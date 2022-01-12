@@ -1,4 +1,4 @@
-# Lme Coding Challenge
+# LME Coding Challenge - Gerrone Matticks
 
 ## How to run
 ### With IntelliJ
